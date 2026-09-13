@@ -1,0 +1,5 @@
+@import url('https://www-infinity4.github.io/WGN/styles.css?v=20260913-tbs1');
+
+:root{--ink:#08111b;--panel:#102235;--panel-2:#17334d;--blue:#7fd9ff;--blue2:#c0ecff;--red:#f28b1a;--cream:#fffaf2;--muted:#b6c6d6;--line:rgba(127,217,255,.22)}
+.brand-mark{background:linear-gradient(135deg,#f28b1a,#d94d31);font-size:.8rem;font-weight:1000;letter-spacing:.04em}.movie-strip{background:linear-gradient(90deg,#133f66,#f28b1a,#133f66)}
+.channel-menu nav a[aria-current="page"],.channel-directory a[aria-current="page"]{background:#f28b1a;color:#08111b}.phi-web-search button{background:#f28b1a;color:#08111b}
