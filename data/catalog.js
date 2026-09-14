@@ -22,13 +22,17 @@ window.TBS_PROGRAMS = {
 
   movieJustice:{id:"TBS-MOV-1",title:"Color of Justice",year:1997,collection:"Superstation Movie · Full Movie",runtimeSeconds:5700,videoId:"JJdB9gp4pnA",cleared:true},
   movieVanished:{id:"TBS-MOV-2",title:"Vanished Without a Trace",year:1993,collection:"Superstation Movie · Full Movie",runtimeSeconds:5340,videoId:"6R_kihZCChM",cleared:true},
-  movieTrial:{id:"TBS-MOV-3",title:"The Trial",year:2010,collection:"Superstation Movie · Full Movie",runtimeSeconds:6048,videoId:"KSoHhMbdppw",cleared:true}
+  movieTrial:{id:"TBS-MOV-3",title:"The Trial",year:2010,collection:"Superstation Movie · Full Movie",runtimeSeconds:6048,videoId:"KSoHhMbdppw",cleared:true},
+  movieBride:{id:"TBS-MOV-4",title:"Children of the Bride",year:1990,collection:"Superstation Family Movie · Full Movie",runtimeSeconds:5700,videoId:"AVPLmB3PVbg",cleared:true},
+  movieFamilyMess:{id:"TBS-MOV-5",title:"The Family Mess",year:1990,collection:"Superstation Comedy · Full Movie",runtimeSeconds:5700,videoId:"f58_dv6uGjM",cleared:true},
+  movieButler:{id:"TBS-MOV-6",title:"Bob the Butler",year:2005,collection:"Superstation Family Comedy · Full Movie",runtimeSeconds:5400,videoId:"vLRK63m0m7Y",cleared:true},
+  movieMarching:{id:"TBS-MOV-7",title:"Marching Out of Time",year:1993,collection:"Superstation Comedy · Full Movie",runtimeSeconds:5700,videoId:"6lJ7IW2gVps",cleared:true}
 };
 
 const cartoons=["tom28","tom29","tom30","tom31","looneyA","looneyB","planetA","planetB"];
 const sitcom30=["dickVanDyke","addamsSchool","addamsVIP","addamsTree","addamsHalloween","addamsNeighbors","dannyThomas"];
 const sitcom60=["bossA","bossB"];
-const movies=["movieJustice","movieVanished","movieTrial"];
+const movies=["movieJustice","movieVanished","movieTrial","movieBride","movieFamilyMess","movieButler","movieMarching"];
 
 window.TBS_DAY_TEMPLATE = [
   {minute:0,duration:120,choices:movies},{minute:120,duration:120,choices:["movieVanished","movieTrial","movieJustice"]},
