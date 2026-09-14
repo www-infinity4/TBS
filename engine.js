@@ -33,20 +33,26 @@
     return value >>> 0;
   }
 
-  function pickChoice(choices, key, index) {
-    if (!choices.length) return null;
-    const parts = String(key).split("-").map(Number);
-    const dayNumber = Math.floor(Date.UTC(parts[0], parts[1]-1, parts[2]) / 86400000);
-    const salt = hash(`TBS-${key}-${index}`);
-    return choices[(dayNumber + index + salt) % choices.length];
-  }
-
   function createDaySchedule(nowMs, programs, template) {
     const parts = stationParts(new Date(nowMs));
     const midnightMs = zonedToUtc(parts.year, parts.month, parts.day);
     const key = dateKey(nowMs);
+    const dayNumber = Math.floor(Date.UTC(parts.year, parts.month - 1, parts.day) / 86400000);
+    const groupTotals = new Map();
+    template.forEach(slot => {
+      const signature = [...new Set(slot.choices || [])].sort().join("|");
+      groupTotals.set(signature, (groupTotals.get(signature) || 0) + 1);
+    });
+    const groupUses = new Map();
     return template.map((slot, index) => {
-      const programKey = pickChoice(slot.choices, key, index);
+      const pool = [...new Set(slot.choices || [])].filter(programKey => programs[programKey] && !programs[programKey].retired);
+      const signature = pool.slice().sort().join("|");
+      const occurrence = groupUses.get(signature) || 0;
+      groupUses.set(signature, occurrence + 1);
+      const dailyUses = groupTotals.get(signature) || 1;
+      const stablePool = pool.slice().sort((a,b) => hash(`TBS-FRESH-ROTATION|${signature}|${a}`) - hash(`TBS-FRESH-ROTATION|${signature}|${b}`));
+      const cyclePosition = dayNumber * dailyUses + occurrence;
+      const programKey = stablePool.length ? stablePool[cyclePosition % stablePool.length] : null;
       const program = programs[programKey];
       const blockSeconds = slot.duration * 60;
       return {
@@ -54,7 +60,9 @@
         movie:program,
         startsAtMs:midnightMs + slot.minute * 60000,
         endsAtMs:midnightMs + (slot.minute + slot.duration) * 60000,
-        blockSeconds
+        blockSeconds,
+        rotationPosition:cyclePosition,
+        freshUntilPoolExhausted:true
       };
     });
   }
